@@ -3,6 +3,7 @@ import { Bowlby_One_SC, DM_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { SVGFilters } from "@/components/SVGFilters";
+import { Footer } from "@/components/Footer";
 
 const bowlby = Bowlby_One_SC({
   subsets: ["latin"],
@@ -17,7 +18,6 @@ const dmMono = DM_Mono({
   variable: "--font-dm-mono",
   weight: "500",
 });
-
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -34,8 +34,12 @@ export default function RootLayout({
       <body
         className={`${bowlby.variable} ${dmMono.variable} font-mono font-medium text-zinc-800 antialiased`}
       >
-        <Header />
-        {children}
+        <main>
+          <Header />
+          {children}
+          <Footer />
+        </main>
+
         <SVGFilters />
       </body>
     </html>
