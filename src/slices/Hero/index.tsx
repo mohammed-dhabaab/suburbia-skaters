@@ -1,15 +1,18 @@
 import { FC } from "react";
-import { Content } from "@prismicio/client";
-import {
-  PrismicText,
-  SliceComponentProps,
-} from "@prismicio/react";
+import { asImageSrc, Content } from "@prismicio/client";
+import { PrismicText, SliceComponentProps } from "@prismicio/react";
 
 import { Bounded } from "@/components/Bounded";
 import { Heading } from "@/components/Heading";
 import { ButtonLink } from "@/components/ButtonLink";
 import { WideLogo } from "./WideLogo";
 import { TallLogo } from "./TallLogo";
+import InteractiveSkateBoard from "./InteractiveSkateBoard";
+
+const DEFAULT_DECK_TEXTURE = "/skateboard/Deck.webp";
+const DEFAULT_WHEEL_TEXTURE = "/skateboard/SkateWheel1.png";
+const DEFAULT_TRUCK_COLOR = "#262a2b";
+const DEFAULT_BOLT_COLOR = "#262a2b";
 
 /**
  * Props for `Hero`.
@@ -20,6 +23,14 @@ export type HeroProps = SliceComponentProps<Content.HeroSlice>;
  * Component for "Hero" Slices.
  */
 const Hero: FC<HeroProps> = ({ slice }) => {
+  const deckTextureURL =
+    asImageSrc(slice.primary.skateboard_deck_texture) || DEFAULT_DECK_TEXTURE;
+  const wheelTextureURL =
+    asImageSrc(slice.primary.skateboard_wheel_texture) || DEFAULT_WHEEL_TEXTURE;
+  const truckColor =
+    slice.primary.skateboard_truck_color || DEFAULT_TRUCK_COLOR;
+  const boltColor = slice.primary.skateboard_bolt_color || DEFAULT_BOLT_COLOR;
+
   return (
     <Bounded
       data-slice-type={slice.slice_type}
@@ -50,6 +61,13 @@ const Hero: FC<HeroProps> = ({ slice }) => {
           </ButtonLink>
         </div>
       </div>
+
+      <InteractiveSkateBoard
+        deckTextureURL={deckTextureURL}
+        wheelTextureURL={wheelTextureURL}
+        truckColor={truckColor}
+        boltColor={boltColor}
+      />
     </Bounded>
   );
 };

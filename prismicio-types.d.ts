@@ -69,6 +69,133 @@ type ContentRelationshipFieldWithData<
   >;
 }[Exclude<TCustomType[number], string>["id"]];
 
+/**
+ * Item in *Board Customizer → Wheels*
+ */
+export interface BoardCustomizerDocumentDataWheelsItem {
+  /**
+   * Texture field in *Board Customizer → Wheels*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: board_customizer.wheels[].texture
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  texture: prismic.ImageField<never>;
+
+  /**
+   * UID field in *Board Customizer → Wheels*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: board_customizer.wheels[].uid
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  uid: prismic.KeyTextField;
+}
+
+/**
+ * Item in *Board Customizer → Decks*
+ */
+export interface BoardCustomizerDocumentDataDecksItem {
+  /**
+   * Texture field in *Board Customizer → Decks*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: board_customizer.decks[].texture
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  texture: prismic.ImageField<never>;
+
+  /**
+   * UID field in *Board Customizer → Decks*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: board_customizer.decks[].uid
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  uid: prismic.KeyTextField;
+}
+
+/**
+ * Item in *Board Customizer → Metals*
+ */
+export interface BoardCustomizerDocumentDataMetalsItem {
+  /**
+   * Color field in *Board Customizer → Metals*
+   *
+   * - **Field Type**: Color
+   * - **Placeholder**: *None*
+   * - **API ID Path**: board_customizer.metals[].color
+   * - **Documentation**: https://prismic.io/docs/fields/color
+   */
+  color: prismic.ColorField;
+
+  /**
+   * UID field in *Board Customizer → Metals*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: board_customizer.metals[].uid
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  uid: prismic.KeyTextField;
+}
+
+/**
+ * Content for Board Customizer documents
+ */
+interface BoardCustomizerDocumentData {
+  /**
+   * Wheels field in *Board Customizer*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: board_customizer.wheels[]
+   * - **Tab**: Wheels
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  wheels: prismic.GroupField<
+    Simplify<BoardCustomizerDocumentDataWheelsItem>
+  > /**
+   * Decks field in *Board Customizer*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: board_customizer.decks[]
+   * - **Tab**: Decks
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */;
+  decks: prismic.GroupField<Simplify<BoardCustomizerDocumentDataDecksItem>> /**
+   * Metals field in *Board Customizer*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: board_customizer.metals[]
+   * - **Tab**: Metals
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */;
+  metals: prismic.GroupField<Simplify<BoardCustomizerDocumentDataMetalsItem>>;
+}
+
+/**
+ * Board Customizer document from Prismic
+ *
+ * - **API ID**: `board_customizer`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type BoardCustomizerDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<BoardCustomizerDocumentData>,
+    "board_customizer",
+    Lang
+  >;
+
 type HomeDocumentDataSlicesSlice =
   | TeamGridSlice
   | VideoBlockSlice
@@ -404,6 +531,7 @@ export type SkaterDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<SkaterDocumentData>, "skater", Lang>;
 
 export type AllDocumentTypes =
+  | BoardCustomizerDocument
   | HomeDocument
   | SettingsDocument
   | SkateboardDocument
@@ -442,6 +570,46 @@ export interface HeroSliceDefaultPrimary {
    * - **Documentation**: https://prismic.io/docs/fields/link
    */
   button: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
+
+  /**
+   * Skateboard Deck Texture field in *Hero → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.default.primary.skateboard_deck_texture
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  skateboard_deck_texture: prismic.ImageField<never>;
+
+  /**
+   * Skateboard Wheel Texture field in *Hero → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.default.primary.skateboard_wheel_texture
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  skateboard_wheel_texture: prismic.ImageField<never>;
+
+  /**
+   * Skateboard Truck Color field in *Hero → Default → Primary*
+   *
+   * - **Field Type**: Color
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.default.primary.skateboard_truck_color
+   * - **Documentation**: https://prismic.io/docs/fields/color
+   */
+  skateboard_truck_color: prismic.ColorField;
+
+  /**
+   * Skateboard Bolt Color field in *Hero → Default → Primary*
+   *
+   * - **Field Type**: Color
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.default.primary.skateboard_bolt_color
+   * - **Documentation**: https://prismic.io/docs/fields/color
+   */
+  skateboard_bolt_color: prismic.ColorField;
 }
 
 /**
@@ -846,6 +1014,11 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      BoardCustomizerDocument,
+      BoardCustomizerDocumentData,
+      BoardCustomizerDocumentDataWheelsItem,
+      BoardCustomizerDocumentDataDecksItem,
+      BoardCustomizerDocumentDataMetalsItem,
       HomeDocument,
       HomeDocumentData,
       HomeDocumentDataSlicesSlice,

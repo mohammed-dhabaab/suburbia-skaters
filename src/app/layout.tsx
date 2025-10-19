@@ -35,9 +35,7 @@ export default function RootLayout({
         className={`${bowlby.variable} ${dmMono.variable} font-mono font-medium text-zinc-800 antialiased`}
       >
         <main>
-          <Header />
           {children}
-          <Footer />
         </main>
 
         <SVGFilters />
