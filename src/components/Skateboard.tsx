@@ -5,6 +5,17 @@ import { GLTF } from "three-stdlib";
 import { useFrame } from "@react-three/fiber";
 import gsap from "gsap";
 
+const POSE_POSITIONS = {
+  upright: {
+    rotation: [0, 0, 0],
+    position: [0, 0, 0],
+  },
+  side: {
+    rotation: [0, 0, Math.PI / 2],
+    position: [0, 0.295, 0],
+  },
+} as const;
+
 type SkateboardProps = {
   wheelTextureURLs: string[];
   wheelTextureURL: string;
@@ -159,7 +170,7 @@ export function Skateboard({
     }
   });
 
-    useEffect(() => {
+  useEffect(() => {
     if (!wheelRefs.current || constantWheelSpin) return;
     for (const wheel of wheelRefs.current) {
       gsap.to(wheel.rotation, {
@@ -171,7 +182,11 @@ export function Skateboard({
   }, [constantWheelSpin, wheelTextureURL]);
 
   return (
-    <group dispose={null}>
+    <group
+      dispose={null}
+      rotation={POSE_POSITIONS[pose].rotation}
+      position={POSE_POSITIONS[pose].position}
+    >
       <group name="Scene">
         <mesh
           name="GripTape"
