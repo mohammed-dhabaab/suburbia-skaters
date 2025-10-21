@@ -14,6 +14,7 @@ export function ButtonLink({
   icon,
   children,
   className,
+  prefetch, 
   ...props
 }: ButtonProps) {
   return (
@@ -30,7 +31,8 @@ export function ButtonLink({
         color === "lime" && "from-brand-lime to-brand-orange text-black",
         className
       )}
-      {...(props as any)}
+      {...(props)} 
+      prefetch={typeof prefetch === 'boolean' ? prefetch : undefined}
     >
       {icon ? (
         <>
@@ -53,6 +55,7 @@ export function ButtonLink({
     </PrismicNextLink>
   );
 }
+
 
 function SkateboardIcon() {
   return (
